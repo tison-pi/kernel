@@ -20,6 +20,7 @@
 #include <linux/platform_device.h>
 #include <linux/property.h>
 #include <linux/slab.h>
+#include <linux/delay.h>
 
 struct gpio_led_data {
 	struct led_classdev cdev;
@@ -141,6 +142,11 @@ static int create_gpio_led(const struct gpio_led *template,
 	if (ret < 0)
 		return ret;
 
+    //delay trigger,wucaicheng,1378913492@qq.com,20230914
+    if (template->delay_reg > 0) {
+        msleep(template->delay_reg);
+    }
+
 	return devm_of_led_classdev_register(parent, np, &led_dat->cdev);
 }
 
@@ -194,6 +200,12 @@ static struct gpio_leds_priv *gpio_leds_create(struct platform_device *pdev)
 
 		fwnode_property_read_string(child, "linux,default-trigger",
 					    &led.default_trigger);
+
+		//delay trigger,wucaicheng,1378913492@qq.com,20230914
+		of_property_read_u32(np, "linux,delay-reg", &led.delay_reg);
+		of_property_read_u32(np, "linux,blink-delay-on", (u32*)(&led_dat->cdev.blink_delay_on));
+		of_property_read_u32(np, "linux,blink-delay-off", (u32*)(&led_dat->cdev.blink_delay_off));
+
 
 		if (!fwnode_property_read_string(child, "default-state",
 						 &state)) {
