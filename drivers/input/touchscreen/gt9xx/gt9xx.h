@@ -40,10 +40,10 @@
 //#include <linux/earlysuspend.h>
 
 #define CONFIG_8_9  0
-#define DEBUG_SWITCH  0
+#define DEBUG_SWITCH  1
 
 //***************************PART1:ON/OFF define*******************************
-#define GTP_CUSTOM_CFG        0
+#define GTP_CUSTOM_CFG        1
 #if CONFIG_8_9
 #define GTP_CHANGE_X2Y        1
 #define GTP_X_REVERSE_ENABLE	0
@@ -79,7 +79,7 @@
 
 #define GTP_DEBUG_ON          1
 #define GTP_DEBUG_ARRAY_ON    0
-#define GTP_DEBUG_FUNC_ON     0
+#define GTP_DEBUG_FUNC_ON     1
 
 /* init use fixed clk num */
 /* if open, u8 p_main_clk[6] = {69,69,69,69,69,167}; */
@@ -278,8 +278,8 @@ extern u16 total_len;
 
 // STEP_3(optional): Specify your special config info if needed
 #if GTP_CUSTOM_CFG
-  #define GTP_MAX_HEIGHT   800
-  #define GTP_MAX_WIDTH    480
+  #define GTP_MAX_HEIGHT   1280
+  #define GTP_MAX_WIDTH    800
   #define GTP_INT_TRIGGER  0            // 0: Rising 1: Falling
 #else
   #define GTP_MAX_HEIGHT   4096
